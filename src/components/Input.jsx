@@ -1,17 +1,20 @@
-import styled from "styled-components"
-import COLORS from "../constants/styles"
+import styled from "styled-components";
+import COLORS from "../constants/styles";
 
-export default function Input({ type, placeholder, value, setValue }) {
+export default function Input({ type, placeholder, value, setValue, on }) {
     return (
-        <Sinput 
-            type={type} 
-            placeholder={placeholder} 
-            color={COLORS.TERCIARY} 
-            value={value} 
-            onChange={(e) => setValue(e.target.value)} 
+        <Sinput
+            type={type}
+            placeholder={placeholder}
+            firstcolor={COLORS.PRIMARY}
+            seccolor={COLORS.TERCIARY}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            disabled={on}
         />
-    )
+    );
 }
+
 const Sinput = styled.input`
     width: 100%;
     height: 60px;
@@ -23,9 +26,13 @@ const Sinput = styled.input`
     box-shadow: 0px 4px 24px rgba(120, 177, 89, 0.12);
 
     font-size: 14px;
-    color: ${props => props.color};
+    color: ${props => props.firstcolor};
 
     &:focus{
         outline: 0;
+    }
+    &:disabled{
+        pointer-events: none;
+        background-color: ${props => props.seccolor};
     }
 `
