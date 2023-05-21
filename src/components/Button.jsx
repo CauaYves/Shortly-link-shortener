@@ -15,7 +15,6 @@ export default function Button({ text, on }) {
 
 const Createaccount = styled.div`
     width: 100%;
-    margin-top: 30px;
 
     display: flex;
     align-items: center;

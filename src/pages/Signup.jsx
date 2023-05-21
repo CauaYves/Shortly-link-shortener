@@ -16,7 +16,7 @@ export default function Signup() {
         password: "",
         confirmPassword: ""
     })
-    
+
     function createAccount(e) {
         e.preventDefault()
         axios
@@ -48,4 +48,7 @@ const Main = styled.div`
 `
 const Form = styled.form`
     margin-bottom: 50px;
+    &>:last-child{
+        margin-top: 30px;
+    }
 `
