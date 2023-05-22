@@ -2,8 +2,20 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Logo from "../components/Logo";
 import trophy from "../imgs/Thophy.png"
+import { MoonLoader } from 'react-spinners';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Homepage() {
+
+    const [links, setLinks] = useState([])
+
+    useEffect(() => {
+        axios
+            .get(`${process.env.REACT_APP_BASE_URL}/ranking`)
+            .then(res => setLinks(res.data))
+            .catch(error => console.log(error))
+    })
     return (
         <Main>
             <Navbar />
@@ -12,13 +24,18 @@ export default function Homepage() {
                 <img src={trophy} alt="trophy" />
                 <h1><strong>Ranking</strong></h1>
             </Ranking>
-            <Toplinks>
-                <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
-                <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
-                <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
-                <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
-                <p>1. Fulaninha - 32 links - 1.703.584 visualizações</p>
-            </Toplinks>
+                {links.length === 0 ? (
+                    <AnimationBox><MoonLoader size={50} color="#123abc" loading={true} /></AnimationBox>
+                ) : (
+                    <Toplinks>
+                        {links.map((link) => (
+                            <p key={link.id}>
+                                {link.id}. {link.name} - {link.linksCount} - links {link.visitCount} visualizações
+                            </p>
+                        ))}
+                    </Toplinks>
+                )}
+
             <h1>Crie sua conta para usar nosso serviço!</h1>
         </Main>
     )
@@ -41,6 +58,11 @@ const Ranking = styled.div`
     align-items: center;
     justify-content: center;
 `
+const AnimationBox = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
 const Toplinks = styled.div`
     width: 100%;
     min-height: 235px;
@@ -50,6 +72,10 @@ const Toplinks = styled.div`
     padding: 10px 40px;
     margin-bottom: 80px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: center;
     p{
         font-size: 22px;
         line-height: 40px;

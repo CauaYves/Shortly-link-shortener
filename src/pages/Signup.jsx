@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
     const navigate = useNavigate()
-
+    const [textmsg, setTextmsg] = useState("")
     const [inputs, setInputs] = useState({
         name: "",
         email: "",
@@ -22,7 +22,7 @@ export default function Signup() {
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/signup`, inputs)
             .then(navigate("/login"))
-            .catch(err => alert(err))
+            .catch(err => setTextmsg(err.response.data))
     }
 
     return (
@@ -31,6 +31,7 @@ export default function Signup() {
             <Logo />
 
             <Form onSubmit={createAccount}>
+                <p>{textmsg}</p>
                 <Input placeholder="Nome" type="text" value={inputs.name} setValue={(value) => setInputs({ ...inputs, name: value })} />
                 <Input placeholder="E-mail" type="email" value={inputs.email} setValue={(value) => setInputs({ ...inputs, email: value })} />
                 <Input placeholder="Senha" type="password" value={inputs.password} setValue={(value) => setInputs({ ...inputs, password: value })} />

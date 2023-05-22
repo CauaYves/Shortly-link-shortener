@@ -1,5 +1,4 @@
 export function saveToken(token) {
-    console.log(token)
     const acessToken = localStorage.setItem("token", token)
     return acessToken
 }
@@ -7,4 +6,7 @@ export function saveToken(token) {
 export function getToken(key) {
     const token = localStorage.getItem(key)
     return token
+}
+export function logout(){
+    localStorage.removeItem('token')
 }

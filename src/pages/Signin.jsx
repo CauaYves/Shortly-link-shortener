@@ -6,22 +6,28 @@ import Button from "../components/Button";
 import { useState } from "react";
 import axios from "axios";
 import { saveToken } from "../functions/auth.function";
+import { useNavigate } from "react-router-dom";
 
 export default function Signin() {
     const [textmsg, setTextmsg] = useState("")
-
     const [loading, setLoading] = useState(false)
     const [inputs, setInputs] = useState({
         email: "",
         password: "",
     })
+    const navigate = useNavigate()
+
+    function redirect(res, route) {
+        saveToken(res.data.token)
+        if (res.status === 200) navigate(route)
+    }
 
     function login(e) {
         e.preventDefault()
         setLoading(true)
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/signin`, inputs)
-            .then(res => saveToken(res.data.token))
+            .then(res => redirect(res, "/home"))
             .catch(err => setTextmsg(err.response.data))
             .finally(() => setLoading(false))
     }
