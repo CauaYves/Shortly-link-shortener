@@ -24,15 +24,14 @@ export default function Signin() {
 
     function login(e) {
         e.preventDefault()
+        console.log(inputs)
         setLoading(true)
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/signin`, inputs)
             .then(res => redirect(res, "/home"))
-            .catch(err => setTextmsg(err.response.data))
+            .catch(err => {setTextmsg(err.response.data); console.log(err)})
             .finally(() => setLoading(false))
     }
-
-    console.debug("Entrou")
 
     return (
         <Main>

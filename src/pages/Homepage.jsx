@@ -5,6 +5,7 @@ import trophy from "../imgs/Thophy.png"
 import { MoonLoader } from 'react-spinners';
 import { useEffect, useState } from "react";
 import axios from "axios";
+import COLORS from "../constants/styles";
 
 export default function Homepage() {
 
@@ -25,12 +26,12 @@ export default function Homepage() {
                 <h1><strong>Ranking</strong></h1>
             </Ranking>
                 {links.length === 0 ? (
-                    <AnimationBox><MoonLoader size={50} color="#123abc" loading={true} /></AnimationBox>
+                    <AnimationBox><h1>carregando</h1><MoonLoader size={50} color={COLORS.PRIMARY} loading={true} /></AnimationBox>
                 ) : (
                     <Toplinks>
                         {links.map((link) => (
                             <p key={link.id}>
-                                {link.id}. {link.name} - {link.linksCount} - links {link.visitCount} visualizações
+                                {link.id}. {link.name} - {link.linksCount} links - {link.visitCount} visualizações
                             </p>
                         ))}
                     </Toplinks>
@@ -60,8 +61,10 @@ const Ranking = styled.div`
 `
 const AnimationBox = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: 70px 0px;
 `
 const Toplinks = styled.div`
     width: 100%;

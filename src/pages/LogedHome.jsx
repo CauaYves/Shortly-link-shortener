@@ -21,12 +21,11 @@ export default function LogedHome() {
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BASE_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
-            .then(res => { setUsername(res.data.name); setShorturls(res.data.shortenedUrls) })
-            .catch(error => setErrormsg(error.responde.data))
-    })
+            .then(res => { setUsername(res.data.name); setShorturls(res.data.urls) })
+            .catch(error => setErrormsg(error.responde.data.urls))
+    }, [])
 
     function postShorturl(linkurl) {
-        console.log(token)
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/urls/shorten`, { url: linkurl }, {
                 headers: {
@@ -35,7 +34,6 @@ export default function LogedHome() {
             })
             .then(res => console.log(res))
             .catch(error => { setErrormsg(error.response.data); console.log(error) })
-        console.log(linkurl)
     }
 
     return (
@@ -43,7 +41,6 @@ export default function LogedHome() {
             <LogedNav />
             <Logo />
             <p>{errormsg}</p>
-            {shorturls}
             <Flex>
                 <InputDiv>
                     <Input type="text" placeholder="Links que cabem no bolso" value={link} setValue={setLink} />
@@ -52,9 +49,10 @@ export default function LogedHome() {
                     <Button text="Encurtar link" />
                 </ButtonDiv>
             </Flex>
-            <Infolink link="www.google.com.br" shorturl="asd79s" visitors="12" />
-            <Infolink link="www.google.com.br" shorturl="asd79s" visitors="12" />
-            <Infolink link="www.google.com.br" shorturl="asd79s" visitors="12" />
+            {console.log(shorturls.urls)}
+            {shorturls.map(obj => {
+                return <Infolink key={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} />
+            })}
         </Main>
     )
 }
