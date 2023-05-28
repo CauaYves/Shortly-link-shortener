@@ -16,7 +16,7 @@ export default function Homepage() {
             .get(`${process.env.REACT_APP_BASE_URL}/ranking`)
             .then(res => setLinks(res.data))
             .catch(error => console.log(error))
-    })
+    },[])
     return (
         <Main>
             <Navbar />

@@ -11,9 +11,10 @@ import Contextapi from "../context/Contextapi";
 import { MoonLoader } from "react-spinners";
 import COLORS from "../constants/styles";
 import AnimationBox from "../components/AnimationBox";
+import { useNavigate } from "react-router-dom";
 
 export default function LogedHome() {
-
+    const navigate = useNavigate()
     const token = getToken("token")
     const { setUsername } = useContext(Contextapi)
     const [shorturls, setShorturls] = useState(null)
@@ -25,7 +26,10 @@ export default function LogedHome() {
             .get(`${process.env.REACT_APP_BASE_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
             .then(res => { setUsername(res.data.name); setShorturls(res.data.urls) })
             .catch(error => setErrormsg(error.responde.data.urls))
-    },)
+    },[])
+    useEffect(() => {
+        if(!token) navigate("/")
+    }, [])
 
     function postShorturl(linkurl) {
         axios
@@ -49,9 +53,7 @@ export default function LogedHome() {
             .catch(error => console.log(error))
     }
 
-
     let content
-
     if (shorturls === null) {
         content = <AnimationBox />
     } else if (shorturls.length === 0) {
@@ -61,6 +63,7 @@ export default function LogedHome() {
             return <Infolink key={obj.id} id={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} deleteUrl={deleteUrl} />
         })
     }
+
     return (
         <Main>
             <LogedNav />

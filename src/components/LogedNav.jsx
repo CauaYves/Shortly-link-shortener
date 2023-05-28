@@ -15,7 +15,7 @@ export default function LogedNav() {
             </div>
             <div>
                 <CustomLink to="/home" color={COLORS.TERCIARY}>Home</CustomLink>
-                <CustomLink to="/ranking" color={COLORS.TERCIARY}>Ranking</CustomLink>
+                <CustomLink to="/" color={COLORS.TERCIARY}>Ranking</CustomLink>
                 <CustomLink to="/" color={COLORS.TERCIARY} onClick={logout}>Sair</CustomLink>
             </div>
         </Nav>
