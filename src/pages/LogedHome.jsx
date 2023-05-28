@@ -26,11 +26,15 @@ export default function LogedHome() {
             .get(`${process.env.REACT_APP_BASE_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
             .then(res => { setUsername(res.data.name); setShorturls(res.data.urls) })
             .catch(error => setErrormsg(error.responde.data.urls))
-    },[])
+    }, [])
     useEffect(() => {
-        if(!token) navigate("/")
+        if (!token) navigate("/")
     }, [])
 
+    function redirectUser(shorturl) {
+        axios
+            .get(`${process.env.REACT_APP_BASE_URL}/urls/open/${shorturl}`,)
+    }
     function postShorturl(linkurl) {
         axios
             .post(`${process.env.REACT_APP_BASE_URL}/urls/shorten`, { url: linkurl }, {
@@ -60,7 +64,7 @@ export default function LogedHome() {
         content = <h2>Você ainda não criou nenhuma url encurtada, crie uma agora!</h2>;
     } else {
         content = shorturls.map(obj => {
-            return <Infolink key={obj.id} id={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} deleteUrl={deleteUrl} />
+            return <Infolink key={obj.id} id={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} deleteUrl={deleteUrl} redirectUser={redirectUser} />
         })
     }
 

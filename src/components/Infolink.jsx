@@ -2,15 +2,15 @@ import styled from "styled-components"
 import trash from "../imgs/trash.png"
 import COLORS from "../constants/styles"
 
-export default function Infolink({ id, link, shorturl, visitors, deleteUrl }) {
+export default function Infolink({ id, link, shorturl, visitors, deleteUrl, redirectUser }) {
     return (
-        <Contnr onClick={() => deleteUrl(id)}>
+        <Contnr >
             <Infos color={COLORS.SECONDARY}>
-                <p>{link}</p>
+                <a href={link} target="_blank" rel="noreferrer" onClick={() => redirectUser(shorturl)}>{link}</a>
                 <p>{shorturl}</p>
                 <p>Quantidade de visitantes: {visitors}</p>
             </Infos>
-            <Delicon color={COLORS.SECONDARY}>
+            <Delicon color={COLORS.SECONDARY} onClick={() => deleteUrl(id)}>
                 <img src={trash} alt="trash" />
             </Delicon>
         </Contnr>
@@ -33,7 +33,11 @@ const Infos = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-
+    &>:first-child{
+        color: white;
+        text-decoration: underline;
+        cursor: pointer;
+    }
     p{
         color: white;
     }
