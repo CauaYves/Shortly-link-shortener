@@ -8,22 +8,24 @@ import axios from "axios";
 import { getToken } from "../functions/auth.function.js"
 import LogedNav from "../components/LogedNav";
 import Contextapi from "../context/Contextapi";
+import { MoonLoader } from "react-spinners";
+import COLORS from "../constants/styles";
+import AnimationBox from "../components/AnimationBox";
 
 export default function LogedHome() {
 
     const token = getToken("token")
     const { setUsername } = useContext(Contextapi)
-    const [shorturls, setShorturls] = useState([])
+    const [shorturls, setShorturls] = useState(null)
     const [errormsg, setErrormsg] = useState([])
     const [link, setLink] = useState("")
-
 
     useEffect(() => {
         axios
             .get(`${process.env.REACT_APP_BASE_URL}/users/me`, { headers: { Authorization: `Bearer ${token}` } })
             .then(res => { setUsername(res.data.name); setShorturls(res.data.urls) })
             .catch(error => setErrormsg(error.responde.data.urls))
-    }, [])
+    },)
 
     function postShorturl(linkurl) {
         axios
@@ -35,7 +37,30 @@ export default function LogedHome() {
             .then(res => console.log(res))
             .catch(error => { setErrormsg(error.response.data); console.log(error) })
     }
+    function deleteUrl(urlId) {
+        console.log(urlId)
+        axios
+            .delete(`${process.env.REACT_APP_BASE_URL}/urls/${urlId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            })
+            .then(res => window.location.reload())
+            .catch(error => console.log(error))
+    }
 
+
+    let content
+
+    if (shorturls === null) {
+        content = <AnimationBox />
+    } else if (shorturls.length === 0) {
+        content = <h2>Você ainda não criou nenhuma url encurtada, crie uma agora!</h2>;
+    } else {
+        content = shorturls.map(obj => {
+            return <Infolink key={obj.id} id={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} deleteUrl={deleteUrl} />
+        })
+    }
     return (
         <Main>
             <LogedNav />
@@ -49,10 +74,9 @@ export default function LogedHome() {
                     <Button text="Encurtar link" />
                 </ButtonDiv>
             </Flex>
-            {console.log(shorturls.urls)}
-            {shorturls.map(obj => {
-                return <Infolink key={obj.id} link={obj.url} shorturl={obj.shortUrl} visitors={obj.visitCount} />
-            })}
+            {content}
+
+
         </Main>
     )
 }

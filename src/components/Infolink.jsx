@@ -2,16 +2,16 @@ import styled from "styled-components"
 import trash from "../imgs/trash.png"
 import COLORS from "../constants/styles"
 
-export default function Infolink({ link, shorturl, visitors }) {
+export default function Infolink({ id, link, shorturl, visitors, deleteUrl }) {
     return (
-        <Contnr>
+        <Contnr onClick={() => deleteUrl(id)}>
             <Infos color={COLORS.SECONDARY}>
                 <p>{link}</p>
                 <p>{shorturl}</p>
                 <p>Quantidade de visitantes: {visitors}</p>
             </Infos>
             <Delicon color={COLORS.SECONDARY}>
-                <img src={trash} />
+                <img src={trash} alt="trash" />
             </Delicon>
         </Contnr>
 
