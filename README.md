@@ -1,70 +1,53 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Projeto #17 - Shortly API
 
-## Available Scripts
+##### Este é o projeto "Shortly: Links that fit in your pocket!", um encurtador de URLs que permite aos usuários converter URLs longas em URLs curtas e compartilhá-las de forma mais conveniente.
 
-In the project directory, you can run:
+# Preview
+![ezgif com-gif-maker](https://github.com/CauaYves/projeto17-shortly-front/assets/108950428/007f306e-0b01-449e-9161-60950fb29386)
+# Funcionalidades
+  Os usuários podem se cadastrar e fazer login na plataforma.
+  Os usuários autenticados podem encurtar URLs longas, gerando URLs curtas exclusivas.
+  Os usuários podem compartilhar as URLs curtas geradas com outras pessoas.
+  As URLs curtas redirecionam automaticamente para as URLs longas correspondentes.
+  Os usuários podem visualizar estatísticas sobre as URLs curtas, como o número de cliques.
+# Tecnologias Utilizadas
+  Node.js
+  Express.js
+  PostgreSQL
+  JWT (JSON Web Tokens) para autenticação
+  Bcrypt para criptografia de senhas
+  Sequelize como ORM (Object-Relational Mapping)
+# Configuração do Ambiente
+  Clone este repositório.
+  Instale as dependências usando o comando npm install.
+  Crie um arquivo .env na raiz do projeto e defina as seguintes variáveis de ambiente:
+```
+DATABASE_URL=postgres://username:password@localhost:5432/database
+JWT_SECRET=your_secret_key
+```
+#### Certifique-se de ter o PostgreSQL instalado e executando.
 
-### `npm start`
+#### Execute as migrações do banco de dados usando o comando
+```
+npx sequelize-cli db:migrate.
+```
+Inicie o servidor usando o comando 
+```
+npm start.
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Rotas da API
+#### Autenticação
+  POST /api/auth/register: Cria um novo usuário.
+  POST /api/auth/login: Faz o login de um usuário e retorna um token de autenticação.
+#### URLs
+  POST /api/urls: Cria uma nova URL curta.
+  GET /api/urls/:shortCode: Redireciona para a URL longa correspondente ao código curto fornecido.
+  GET /api/urls/:shortCode/stats: Retorna as estatísticas da URL curta.
+# Contribuição
+As contribuições para este projeto são bem-vindas. Se você encontrar algum problema ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Licença
+Este projeto está licenciado sob a licença MIT.
+Yves 
