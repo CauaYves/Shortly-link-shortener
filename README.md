@@ -39,12 +39,16 @@ npm start.
 
 # Rotas da API
 #### Autenticação
-  POST /api/auth/register: Cria um novo usuário.
+  POST /api/auth/register: Cria um novo usuário.  
+  
   POST /api/auth/login: Faz o login de um usuário e retorna um token de autenticação.
 #### URLs
-  POST /api/urls: Cria uma nova URL curta.
-  GET /api/urls/:shortCode: Redireciona para a URL longa correspondente ao código curto fornecido.
-  GET /api/urls/:shortCode/stats: Retorna as estatísticas da URL curta.
+  POST /api/urls: Cria uma nova URL curta.  
+  
+  GET /api/urls/:shortCode: Redireciona para a URL longa correspondente ao código curto fornecido.  
+  
+  GET /api/urls/:shortCode/stats: Retorna as estatísticas da URL curta.  
+  
 # Contribuição
 As contribuições para este projeto são bem-vindas. Se você encontrar algum problema ou tiver sugestões de melhorias, sinta-se à vontade para abrir uma issue ou enviar um pull request.
 
